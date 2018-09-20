@@ -98,6 +98,10 @@ bool NTPClient::update() {
     if (!this->_udpSetup) this->begin();                         // setup the UDP client if needed
     return this->forceUpdate();
   }
+  if (millis() < this->_lastUpdate)   // millis will reset to 0 after 51 days - force update
+  {
+    return this->forceUpdate();
+  }
   return true;
 }
 
